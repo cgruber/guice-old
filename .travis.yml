@@ -1,0 +1,20 @@
+language: java
+
+jdk:
+  - openjdk7
+  - oraclejdk7
+  - openjdk6
+
+install:
+  - $INSTALL_CMD
+
+env:
+  matrix:
+    - CMD_EXEC="mvn clean test" INSTALL_CMD="mvn dependency:resolve-plugins test -DskipTests=true"
+    - CMD_EXEC="ant dist test.dist" INSTALL_CMD=""
+    - CMD_EXEC="cd build/no_aop" CMD_EXEC2="ant dist test.dist" INSTALL_CMD="ant no_aop"
+
+script:
+  - $CMD_EXEC
+  - $CMD_EXEC2
+
